@@ -4,39 +4,26 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
-        })
-        export class AppComponent {
-        title = 'cash';
+})
+export class AppComponent {
+  title = 'CashApp';
 
-        Saldo = 0;
-        Transacciones = [
-        ];
+  balance = 0;
+  cantidad = 0;
+  transacciones = [];
 
-        dep(cant: HTMLInputElement) {
-        if (cant.value === '') {
-          alert('Tiene que ingresar una cantidad');
-        } else {
-        if (cant.valueAsNumber >= 0) {
-          this.Saldo = this.Saldo + cant.valueAsNumber;
-          this.Transacciones.unshift(cant.valueAsNumber);
-        } else {
-          alert('No puede ingresar valores negativos');
-        }
-      }
+  cant(cantidad: HTMLInputElement, funcion) {
+      if (cantidad.valueAsNumber <= 0 ||  cantidad.value === '') {
+        alert('Por favor ingrese un numero con un valor mayor a 0');
+    } else {
 
-    }
-
-   ret(cant: HTMLInputElement) {
-     if (cant.value === '') {
-        alert('Tiene que ingresar una cantidad');
-     } else {
-        if (cant.valueAsNumber >= 0) {
-       this.Saldo = this.Saldo - cant.valueAsNumber;
-       this.Transacciones.unshift(-cant.valueAsNumber);
-      } else {
-       alert('No puede ingresar valores negativos');
-      }
+      if (funcion === 'deposito') {
+        this.balance += cantidad.valueAsNumber;
+        this.transacciones.unshift(cantidad.valueAsNumber);
+      } else if (funcion === 'retiro') {
+        this.balance -= cantidad.valueAsNumber;
+        this.transacciones.unshift(-cantidad.valueAsNumber);
     }
   }
-
+  }
 }

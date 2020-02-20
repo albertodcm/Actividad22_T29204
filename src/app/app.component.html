@@ -1,26 +1,130 @@
-<nav>
-  <div class="nav-wrapper">
-    <a href="#" class="brand-logo center">Cash Tracking</a>
-  </div>
-</nav>
-<h4 style="text-align:center">Saldo: </h4>
-<h5 style="text-align:center">{{Saldo | currency}}</h5>
-<h4 style="text-align:center">Ingresa:</h4>
-<div class="Caja">
-  <input type="number" #Cantidad>
+
+<style>
+  :host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+/*
+Barra superior aqui --------------------------------------------------
+*/
+  .toolbar {
+    height: 60px;
+    margin: -8px;
+    display: flex;
+    align-items: center;
+    background-color: #e4170f;
+    color: white;
+    font-weight: 600;
+  }
+
+  .toolbar img {
+    margin: 0 16px;
+  }
+
+  .content {
+    display: flex;
+    margin: 32px auto;
+    padding: 0 16px;
+    max-width: 960px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .abajo {
+    display: flex;
+    margin: 32px auto;
+    padding: 0 16px;
+    max-width: 960px;
+    flex-direction: column;
+    align-items: left;
+  }
+/*
+botones --------------------------------------------------
+*/
+  .button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: rgb(18, 117, 21);
+}
+
+.button2 {
+  background-color: rgb(226, 45, 45);
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.button2:hover {
+  background-color: rgb(133, 31, 31);
+}
+/*
+No sirve checar --------------------------------------------------
+*/
+.inputbox{
+font-size: 100px;
+width: 400px;
+border: none;
+  border-bottom: 2px solid red;
+
+}
+
+</style>
+<!-- CSS arriba---------------------------------------------------------------------------- -->
+
+<!-- Logo y banner aqui---------------------------------------------------------------------------- -->
+<div class="toolbar" role="banner">
+  <img
+    width="40"
+    alt="Logo cash"
+    src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/223/money-with-wings_1f4b8.png"
+  />
+  <h5>Cash Tracking</h5>
+    <div class="spacer"></div>
 </div>
-<div class="row">
-  <div class="col s6">
-    <a (click)="dep(Cantidad)" class="waves-effect waves-light btn">Depositar</a>
+
+<div class="content" role="main">
+
+  <h2>Su balance:</h2>
+  <h2>{{balance | currency}}</h2>
+
+  <div class="input-field col s6">
+    <i class="material-icons prefix">monetization_on </i>
+    <input id="icon_prefix2" class="materialize-textarea" type="number" #cantidad>
+    <label for="icon_prefix2">Ingrese cantidad</label>
   </div>
-  <div class="col s6">
-    <a (click)="ret(Cantidad)" class="waves-effect waves-light btn">Retirar</a>
+
+  <div class="row">
+    <div class="col 1">
+      <button type = "deposito" class="waves-effect waves-light btn" class="button"  (click)="cant(cantidad, 'deposito')" > <i class="material-icons left">arrow_downward</i>Depositar</button>
+    </div>
+    <div class="col 2">
+      <button type = "retiro" class="waves-effect waves-light btn" class="button2"  (click)="cant(cantidad, 'retiro')" ><i class="material-icons left">arrow_upward</i>Retirar</button>
+    </div>
   </div>
 </div>
-<div class="Historial">
-  <h4>Transacciones recientes</h4>
-  <ul class="collection">
-    <li class="collection-item" *ngFor="let transaccion of Transacciones">{{transaccion | currency}}</li>
-    <i class="material-icons right">insert_chart</i>
+
+<div class="abajo" role="segundo">
+
+  <ul class="collection with-header">
+    <li class="collection-header"><h4>Sus transacciones:</h4></li>
+    <li *ngFor="let transaccion of transacciones" class="collection-item">
+      <div>
+        {{transaccion | currency}}
+        {{transaccion.type}}
+
+        <a href="#!" class="secondary-content">
+
+          <i *ngIf="transaccion === 'retiro'" class="material-icons">trending_down</i>
+          <i *ngIf="transaccion === 'deposito'" class="material-icons">trending_up</i>
+
+        </a>
+      </div>
+    </li>
   </ul>
 </div>
